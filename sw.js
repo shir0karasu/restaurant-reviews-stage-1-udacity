@@ -1,4 +1,5 @@
 /* Service Worker */
+const cacheKeeper = ['v1'];
 
 const cacheFiles = [
   '/',
@@ -23,20 +24,35 @@ const cacheFiles = [
 
 self.addEventListener('install', function(e){
   e.waitUntil(
-    caches.open('v1').then(function(cache){
+    caches.open(cacheKeeper).then(function(cache){
       return cache.addAll(cacheFiles);
     })
   );
 });
 
+self.addEventListener('activate', function(e) {
+	e.waitUntil(
+		caches.keys().then(function(cacheNames) {
+			return Promise.all(
+				cacheNames.filter(function(cacheName) {
+					return cacheName.startsWith('v1') &&
+						   cacheName != cacheKeeper;
+				}).map(function(cacheName) {
+          return caches.delete(cacheName);
+				})
+			);
+		})
+	);
+})
+
 self.addEventListener('fetch', function(e){
   e.respondWith(
     caches.match(e.request).then(function(response){
       if(response){
-        console.log('Found ', e.request, ' in cache');
+        //console.log('Found ', e.request, ' in cache');
         return response;
       } else {
-        console.log('Could not find ', e.request, ' in cache, FETCHING');
+        //console.log('Could not find ', e.request, ' in cache, FETCHING');
         return fetch(e.request)
         .then(function(response){
           const clonedResponse = response.clone();
