@@ -36,7 +36,7 @@
 	}
 	.inside #map-container {
 		background: blue none repeat scroll 0 0;
-		height: 88%;
+		height: 100%;
 		position: fixed;
 		right: 0;
 		top: 80px;
@@ -92,6 +92,20 @@
 	.filter-options select {
 		font-size: 12pt;
 	}
+	.inside #map-container{
+		height: 30%;
+	}
+	#reviews-list li{
+		width: 65%;
+		display: flex;
+		flex-flow:wrap;
+	}
+	#reviews-container h2{
+		font-size: 15pt;
+	}
+	#breadcrumb{
+		width:100%;
+	}
 }
 
 @media screen and (max-width: 650px){
@@ -101,11 +115,24 @@
 	body.inside ,td.inside, th.inside, p.inside{
 		font-size: 25pt;
 	}
+	#breadcrumb{
+		width:100%;
+	}
 	#breadcrumb li {
-		font-size: 18pt;
+		font-size: 13pt;
+	}
+	#reviews-list li{
+		width: 65%;
+		display: flex;
+		flex-flow:wrap;
+	}
+	#reviews-container h2{
+		font-size: 15pt;
 	}
 	#restaurant-name{
-		font-size: 40pt;
+		font-size: 19pt;
 	}
-
+	.inside #map-container{
+		height: 30%;
+	}
 }
